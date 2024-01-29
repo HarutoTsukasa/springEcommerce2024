@@ -1,5 +1,6 @@
 package com.sena.ecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class ProductoServiceImplement implements ProductoService{
 		// TODO Auto-generated method stub
 		productoRepository.deleteById(id);//eliminamos el registro de la DB con el id
 		
+	}
+
+	@Override
+	public List<Producto> findAll() {
+		// TODO Auto-generated method stub
+		return productoRepository.findAll();//lista de productos con findAll de JPA
 	}
 
 }
