@@ -11,7 +11,7 @@ public class Usuario {
 	private String tipo;/// tipo de usuario
 	private String password;
 
-	// windos + control + espacio crea constructor sin parametros
+	// windows + control + espacio crea constructor sin parametros
 
 	public Usuario() {
 	}
