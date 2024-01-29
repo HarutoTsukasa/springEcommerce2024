@@ -1,7 +1,23 @@
 package com.sena.ecommerce.model;
 
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuarios") // esta notacion de JPA(Java Persistence API) da el nombre a la tabla en el
+							// motor de DB
+
 public class Usuario {
 	// atributos del usuario
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // esta notacion de JPA hace que el primer campo sea
+														// autoincremental en la DB
 	private Integer id;
 	private String nombre;
 	private String username;
@@ -10,6 +26,13 @@ public class Usuario {
 	private String telefono;
 	private String tipo;/// tipo de usuario
 	private String password;
+
+	// obtener lista de procutos relacuonando con la clase producto
+	@OneToMany(mappedBy = "usuario") // relacion MER
+	private List<Producto> productos;
+
+	@OneToMany(mappedBy = "usuario")
+	private List<Orden> ordenes;
 
 	// windows + control + espacio crea constructor sin parametros
 
@@ -95,8 +118,16 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	//retorna todos los campos de la clase como un solo string
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	// retorna todos los campos de la clase como un solo string
 
 	@Override
 	public String toString() {
@@ -104,7 +135,5 @@ public class Usuario {
 				+ ", direccion=" + direccion + ", telefono=" + telefono + ", tipo=" + tipo + ", password=" + password
 				+ "]";
 	}
-	
-	
 
 }

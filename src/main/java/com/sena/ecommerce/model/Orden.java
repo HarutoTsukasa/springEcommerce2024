@@ -2,12 +2,32 @@ package com.sena.ecommerce.model;
 
 import java.util.Date;//importar de util lo que se va necesitando
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "ordenes")
 public class Orden {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String numero;
 	private Date fechaCreacion;
 	private Date fechaRecibida;
 	private double total;
+
+	// atributo que nos permite identificar que usuarios estan registrados en una
+	// orden
+	@ManyToOne
+	private Usuario usuario;
+
+	@OneToOne(mappedBy = "orden")
+	private DetalleOrden detalle;
 
 	public Orden() {
 	}
@@ -19,6 +39,7 @@ public class Orden {
 		this.fechaCreacion = fechaCreacion;
 		this.fechaRecibida = fechaRecibida;
 		this.total = total;
+
 	}
 
 	public Integer getId() {
@@ -59,6 +80,14 @@ public class Orden {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
