@@ -1,5 +1,6 @@
 package com.sena.ecommerce.controller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.slf4j.*;
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sena.ecommerce.model.Producto;
 import com.sena.ecommerce.model.Usuario;
 import com.sena.ecommerce.service.ProductoService;
+import com.sena.ecommerce.service.UploadFileService;
 
 import ch.qos.logback.classic.Logger;
 
@@ -26,6 +30,10 @@ public class ProductoController {
 
 	@Autowired
 	private ProductoService productoService;
+
+	// variable del servicio de carga y eliminacion de imagenes
+	@Autowired
+	private UploadFileService upload;
 
 	// metodo pra llevar a la vista show de productos
 	@GetMapping("")
@@ -43,12 +51,19 @@ public class ProductoController {
 
 	// metodo para crear nuevos procutos
 	@PostMapping("/save")
-	public String save(Producto producto) {
+	public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
 		// Logger para saber lo que se va a guardar en la DB
 		LOGGER.info("Este es el objeto del producto a guardar en la DB {}", producto);
 		// usuario que registra desde la vista
 		Usuario u = new Usuario(1, "", "", "", "", "", "", "");
 		producto.setUsuario(u);
+		// imagen
+		// validacion cuando se crea un producto
+		if (producto.getId() == null) {
+			String nombreImagen = upload.saveImages(file);
+			producto.setImagen(nombreImagen);
+		}
+
 		productoService.save(producto);
 		return "redirect:/productos";
 	}
@@ -69,11 +84,30 @@ public class ProductoController {
 
 	// metodo para actualizar productos
 	@PostMapping("/update")
-	public String update(Producto producto) {
+	public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
 		// Logger para saber lo que se va a actualizar en la DB
 		LOGGER.info("Este es el objeto del producto a actualizar en la DB {}", producto);
 		// usuario que registra desde la vista
 		Usuario u = new Usuario(1, "", "", "", "", "", "", "");
+		// cuando editamos el producto pero no cambiamos la imagen
+		if (file.isEmpty()) {
+			Producto p = new Producto();
+			p = productoService.get(producto.getId()).get();
+			producto.setImagen(p.getImagen());
+		} else {
+			// cuando se edita la imagen
+			
+			Producto p = new Producto();
+			p = productoService.get(producto.getId()).get();
+
+			// eliminar cuando la imagen no sea por defecto
+			if (!p.getImagen().equals("default.jpg")) {
+				upload.deleteImage(p.getImagen());
+			}
+			
+			String nombreImagen = upload.saveImages(file);
+			producto.setImagen(nombreImagen);
+		}
 		producto.setUsuario(u);
 		productoService.update(producto);
 		return "redirect:/productos";
@@ -82,6 +116,14 @@ public class ProductoController {
 	// metodo para eliminar registro de productos
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) {
+		// borrar imagen
+		Producto p = new Producto();
+		p = productoService.get(id).get();
+
+		// eliminar cuando la imagen no sea por defecto
+		if (!p.getImagen().equals("default.jpg")) {
+			upload.deleteImage(p.getImagen());
+		}
 		productoService.delete(id);
 		return "redirect:/productos";
 	}
