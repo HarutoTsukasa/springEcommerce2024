@@ -87,28 +87,24 @@ public class ProductoController {
 	public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
 		// Logger para saber lo que se va a actualizar en la DB
 		LOGGER.info("Este es el objeto del producto a actualizar en la DB {}", producto);
-		// usuario que registra desde la vista
-		Usuario u = new Usuario(1, "", "", "", "", "", "", "");
+		// variable global para ahorrar lineas de codigo
+		Producto p = new Producto();
+		p = productoService.get(producto.getId()).get();
 		// cuando editamos el producto pero no cambiamos la imagen
 		if (file.isEmpty()) {
-			Producto p = new Producto();
-			p = productoService.get(producto.getId()).get();
+
 			producto.setImagen(p.getImagen());
 		} else {
 			// cuando se edita la imagen
-			
-			Producto p = new Producto();
-			p = productoService.get(producto.getId()).get();
-
 			// eliminar cuando la imagen no sea por defecto
 			if (!p.getImagen().equals("default.jpg")) {
 				upload.deleteImage(p.getImagen());
 			}
-			
+
 			String nombreImagen = upload.saveImages(file);
 			producto.setImagen(nombreImagen);
 		}
-		producto.setUsuario(u);
+		producto.setUsuario(p.getUsuario());
 		productoService.update(producto);
 		return "redirect:/productos";
 	}
