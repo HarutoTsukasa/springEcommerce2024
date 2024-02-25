@@ -42,7 +42,7 @@
 	<header id="header" class="header fixed-top d-flex align-items-center">
 		<div class="container d-flex align-items-center justify-content-between">
 
-			<a href="#" class="logo d-flex align-items-center me-auto me-lg-0">
+			<a th:href="@{/}" class="logo d-flex align-items-center me-auto me-lg-0">
 				<!-- Uncomment the line below if you also wish to use an image logo -->
 				<!-- <img src="assets/img/logo.png" alt=""> -->
 				<h1>Spring eCommerce<span>.</span></h1>
@@ -59,12 +59,12 @@
 					<li class="dropdown"><a href="#"><span>Menú desplegable</span> <i
 								class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
-							<li><a th:href="@{/productos}">Productos</a></li>
+							<li><a href="#">Productos</a></li>
 							<li class="dropdown"><a href="#"><span>Opciones Productos</span> <i
 										class="bi bi-chevron-down dropdown-indicator"></i></a>
 								<ul>
-									<li><a th:href="@{/productos/create}">Crear Producto</a></li>
-									<li><a th:href="@{/productos}">Actualizar Producto</a></li>
+									<li><a href="#">Crear Producto</a></li>
+									<li><a href="#">Actualizar Producto</a></li>
 								</ul>
 							</li>
 							<li><a href="#">Orden</a></li>
@@ -76,7 +76,7 @@
 				</ul>
 			</nav><!-- .navbar -->
 
-			<a class="btn-book-a-table" href="#book-a-table">Book a Table</a>
+			<a class="btn-book-a-table" th:href="@{/administrador}">ADMIN <i class="bi bi-box-arrow-in-right"></i></a>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

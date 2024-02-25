@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
+
+<head th:include="usuario/template_user.html::head"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<div th:include="usuario/template_user.html::header"></div>
+	<!-- End Header -->
+
+	<!-- ======= Hero Section ======= -->
+	<section>
+
+	</section><!-- End Hero Section -->
+
+	<main id="main">
+		<div class="container">
+
+
+			<!-- Page Heading/Breadcrumbs -->
+			<h1 class="mt-4 mb-3">
+				Spring eCommerce <small>Producto</small>
+			</h1>
+
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+				<li class="breadcrumb-item active">Producto</li>
+			</ol>
+
+			<!-- Blog Post -->
+			<div class="card mb-4">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-6">
+							<a href="#"> <img class="img-fluid rounded"
+									th:src="@{/images/{img} (img=${producto.imagen})  }" alt="">
+							</a>
+						</div>
+						<div class="col-lg-6">
+							<form action="#" method="POST">
+								<input type="hidden" th:value="${producto.id}" name="id">
+								<h2 class="card-title" th:text="${producto.nombre}"></h2>
+
+								<ul class="list-group">
+									<li class="list-group-item">
+										<h5 th:text=" 'Precio: '+ ${producto.precio} "></h5>
+									</li>
+									<li class="list-group-item">
+										<p th:text=" 'Descripción: '+ ${producto.descripcion} "></p>
+									</li>
+									<li class="list-group-item">
+										<h6>
+											Cantidad: <input type="number" id="cantidad" name="cantidad"
+												autocomplete="off" min="1" th:max="${producto.cantidad}" value="1">
+										</h6>
+									</li>
+								</ul>
+
+
+								<button type="submit" class="btn btn-dark">Añadir al
+									carrito</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<!-- /.container -->
+	</main><!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<div th:include="usuario/template_user.html::footer"></div>
+	<!-- End Footer -->
+
+	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
+
+	<div id="preloader"></div>
+
+	<div th:include="usuario/template_user.html::jsFiles"></div>
+
+</body>
+
+</html>
