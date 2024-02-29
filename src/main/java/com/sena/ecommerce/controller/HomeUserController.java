@@ -32,7 +32,7 @@ public class HomeUserController {
 	@Autowired
 	private ProductoService productoService;
 
-	// crar dos variables
+	// crear dos variables
 	// lista de detalles de la orden para almacenarlos
 	List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();
 
@@ -82,8 +82,16 @@ public class HomeUserController {
 		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
 
-		// detalles
-		detalles.add(detalleOrden);
+		// validacion para que un producto no se duplique o añada dos veces
+		Integer idProducto = producto.getId();
+		// funcion lamda stream y una funcion anonima con predicado de anyMatch
+		// retorna un true o false
+		boolean insertado = detalles.stream().anyMatch(prod -> prod.getProducto().getId() == idProducto);
+		// si no es true añade el producto
+		if (!insertado) {
+			// detalles
+			detalles.add(detalleOrden);
+		}
 
 		// suma de los totales de la lista que el usuario añada al carrito
 		// funcion lamda stream
@@ -120,6 +128,15 @@ public class HomeUserController {
 		model.addAttribute("orden", orden);
 
 		return "usuario/carrito";
+	}
+
+	// metodo para redirigir al carrito sin productos
+	@GetMapping("/getCart")
+	public String getCart(Model model) {
+		// detalles y ordenes son variables globales
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		return "/usuario/carrito";
 	}
 
 }
