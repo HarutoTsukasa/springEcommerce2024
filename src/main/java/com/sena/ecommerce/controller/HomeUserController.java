@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sena.ecommerce.model.DetalleOrden;
 import com.sena.ecommerce.model.Orden;
 import com.sena.ecommerce.model.Producto;
+import com.sena.ecommerce.model.Usuario;
 import com.sena.ecommerce.service.ProductoService;
+import com.sena.ecommerce.service.UsuarioService;
 
 import ch.qos.logback.classic.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +33,10 @@ public class HomeUserController {
 	// creamos un objeto privado con anotación autowired
 	@Autowired
 	private ProductoService productoService;
+
+	// creamos un objeto privado de usuario con anotacion autowired
+	@Autowired
+	private UsuarioService usuarioservice;
 
 	// crear dos variables
 	// lista de detalles de la orden para almacenarlos
@@ -137,6 +143,21 @@ public class HomeUserController {
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
 		return "/usuario/carrito";
+	}
+
+	// metodo para pasar a la vista de resumen orden
+	@GetMapping("/order")
+	public String order(Model model) {
+
+		// se crea un objeto de la clase usuario donde de momento
+		// se envia el id de usuario quemado
+		Usuario usuario = usuarioservice.findById(1).get();
+
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		model.addAttribute("usuario", usuario);
+
+		return "/usuario/resumenorden";
 	}
 
 }
