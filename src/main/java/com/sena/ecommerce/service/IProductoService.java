@@ -7,7 +7,7 @@ import com.sena.ecommerce.model.Producto;
 
 //aqui definimos todos los metodos CRUD para la tabla producto
 
-public interface ProductoService {
+public interface IProductoService {
 	
 	public Producto save(Producto producto);//metodo de tipo publico que retorna un producto recibe un objeto de tipo producto
 	public Optional<Producto> get(Integer id);//valida si el objeto que llamamos de la DB existe o no

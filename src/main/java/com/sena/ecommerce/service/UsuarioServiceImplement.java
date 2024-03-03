@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sena.ecommerce.model.Usuario;
-import com.sena.ecommerce.repository.UsuarioRepository;
+import com.sena.ecommerce.repository.IUsuarioRepository;
 
 @Service
-public class UsuarioServiceImplement implements UsuarioService {
+public class UsuarioServiceImplement implements IUsuarioService {
 
 	// objeto de tipo private que va a ser del tipo repository
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private IUsuarioRepository usuarioRepository;
 
 	@Override
 	public Usuario save(Usuario usuario) {

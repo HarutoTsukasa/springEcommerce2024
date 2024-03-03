@@ -17,8 +17,8 @@ import com.sena.ecommerce.model.DetalleOrden;
 import com.sena.ecommerce.model.Orden;
 import com.sena.ecommerce.model.Producto;
 import com.sena.ecommerce.model.Usuario;
-import com.sena.ecommerce.service.ProductoService;
-import com.sena.ecommerce.service.UsuarioService;
+import com.sena.ecommerce.service.IProductoService;
+import com.sena.ecommerce.service.IUsuarioService;
 
 import ch.qos.logback.classic.Logger;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,11 +32,11 @@ public class HomeUserController {
 
 	// creamos un objeto privado con anotación autowired
 	@Autowired
-	private ProductoService productoService;
+	private IProductoService productoService;
 
 	// creamos un objeto privado de usuario con anotacion autowired
 	@Autowired
-	private UsuarioService usuarioservice;
+	private IUsuarioService usuarioservice;
 
 	// crear dos variables
 	// lista de detalles de la orden para almacenarlos
@@ -115,7 +115,7 @@ public class HomeUserController {
 	@GetMapping("/delete/cart/{id}")
 	public String deleteProductoCart(@PathVariable Integer id, Model model) {
 		// lista nueva de productos
-		List<DetalleOrden> ordenesNuevas = new ArrayList<DetalleOrden>();
+		List<DetalleOrden> ordenesNuevas = new ArrayList<>();
 		// quitar un objeto de la lista de detalleOrden
 		for (DetalleOrden detalleOrden : detalles) {
 			if (detalleOrden.getProducto().getId() != id) {

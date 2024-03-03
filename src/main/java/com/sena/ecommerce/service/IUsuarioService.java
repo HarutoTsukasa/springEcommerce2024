@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.sena.ecommerce.model.Usuario;
 
-public interface UsuarioService {
+public interface IUsuarioService {
 	// definir metodos
 	public Usuario save(Usuario usuario);
 

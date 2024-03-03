@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sena.ecommerce.model.Producto;
 import com.sena.ecommerce.model.Usuario;
-import com.sena.ecommerce.service.ProductoService;
+import com.sena.ecommerce.service.IProductoService;
 import com.sena.ecommerce.service.UploadFileService;
 
 import ch.qos.logback.classic.Logger;
@@ -29,7 +29,7 @@ public class ProductoController {
 	private final Logger LOGGER = (Logger) LoggerFactory.getLogger(ProductoController.class);
 
 	@Autowired
-	private ProductoService productoService;
+	private IProductoService productoService;
 
 	// variable del servicio de carga y eliminacion de imagenes
 	@Autowired

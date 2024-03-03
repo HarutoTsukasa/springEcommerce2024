@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sena.ecommerce.model.Producto;
-import com.sena.ecommerce.service.ProductoService;
+import com.sena.ecommerce.service.IProductoService;
 
 // decirle que es un controller
 @Controller
@@ -19,7 +19,7 @@ public class AdministradorController {
 
 	// variable de productoService
 	@Autowired
-	private ProductoService productoService;
+	private IProductoService productoService;
 
 	@GetMapping("")
 	public String home(Model model) {
