@@ -27,6 +27,7 @@ public class Orden {
 	@ManyToOne
 	private Usuario usuario;
 
+	// relacion corregida
 	@OneToMany(mappedBy = "orden")
 	private List<DetalleOrden> detalle;
 
