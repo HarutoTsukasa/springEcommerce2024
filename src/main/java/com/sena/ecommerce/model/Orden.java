@@ -90,6 +90,14 @@ public class Orden {
 		this.usuario = usuario;
 	}
 
+	public DetalleOrden getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(DetalleOrden detalle) {
+		this.detalle = detalle;
+	}
+
 	@Override
 	public String toString() {
 		return "Orden [id=" + id + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaRecibida="

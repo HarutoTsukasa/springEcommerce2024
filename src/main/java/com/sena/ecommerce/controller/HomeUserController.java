@@ -1,5 +1,6 @@
 package com.sena.ecommerce.controller;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,8 @@ import com.sena.ecommerce.model.DetalleOrden;
 import com.sena.ecommerce.model.Orden;
 import com.sena.ecommerce.model.Producto;
 import com.sena.ecommerce.model.Usuario;
+import com.sena.ecommerce.service.IDetalleOrdenService;
+import com.sena.ecommerce.service.IOrdenService;
 import com.sena.ecommerce.service.IProductoService;
 import com.sena.ecommerce.service.IUsuarioService;
 
@@ -34,9 +37,17 @@ public class HomeUserController {
 	@Autowired
 	private IProductoService productoService;
 
-	// creamos un objeto privado de usuario con anotacion autowired
+	// creamos un objeto privado de usuario service con anotacion autowired
 	@Autowired
 	private IUsuarioService usuarioservice;
+
+	// creamos un objeto privado de orden service con su anotacion autowired
+	@Autowired
+	private IOrdenService ordenService;
+
+	// creamos un objeto privado de detalleOrden service con su anotacion autowired
+	@Autowired
+	private IDetalleOrdenService detalleOrdenService;
 
 	// crear dos variables
 	// lista de detalles de la orden para almacenarlos
@@ -158,6 +169,27 @@ public class HomeUserController {
 		model.addAttribute("usuario", usuario);
 
 		return "/usuario/resumenorden";
+	}
+
+	// metodo getmapping para el boton de generar orden en la vista
+	@GetMapping("/saveOrder")
+	public String saveOrder() {
+		Date fechaCreacion = new Date();
+		orden.setFechaCreacion(fechaCreacion);
+		orden.setNumero(ordenService.generarNumeroOrden());
+		// usuario que se referencia en esa compra previamente logeado
+		Usuario usuario = usuarioservice.findById(1).get();
+		orden.setUsuario(usuario);
+		ordenService.save(orden);
+		// guardar detalles de la orden
+		for (DetalleOrden dt : detalles) {
+			dt.setOrden(orden);
+			detalleOrdenService.save(dt);
+		}
+		// limpiar valores que no se añadan a lo orden recien guardad
+		orden = new Orden();
+		detalles.clear();
+		return "redirect:/";
 	}
 
 }
