@@ -10,15 +10,15 @@ import com.sena.ecommerce.model.Producto;
 import com.sena.ecommerce.repository.IProductoRepository;
 
 @Service
-public class ProductoServiceImplement implements IProductoService{
-	
+public class ProductoServiceImplement implements IProductoService {
+
 	@Autowired
 	private IProductoRepository productoRepository;
 
 	@Override
 	public Producto save(Producto producto) {
 		// TODO Auto-generated method stub
-		return productoRepository.save(producto);//el create se realiza si no existe el dato en la DB
+		return productoRepository.save(producto);// el create se realiza si no existe el dato en la DB
 	}
 
 	@Override
@@ -30,21 +30,21 @@ public class ProductoServiceImplement implements IProductoService{
 	@Override
 	public void update(Producto producto) {
 		// TODO Auto-generated method stub
-		productoRepository.save(producto);//el update se realiza con el id existente
-		
+		productoRepository.save(producto);// el update se realiza con el id existente
+
 	}
 
 	@Override
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		productoRepository.deleteById(id);//eliminamos el registro de la DB con el id
-		
+		productoRepository.deleteById(id);// eliminamos el registro de la DB con el id
+
 	}
 
 	@Override
 	public List<Producto> findAll() {
 		// TODO Auto-generated method stub
-		return productoRepository.findAll();//lista de productos con findAll de JPA
+		return productoRepository.findAll();// lista de productos con findAll de JPA
 	}
 
 }

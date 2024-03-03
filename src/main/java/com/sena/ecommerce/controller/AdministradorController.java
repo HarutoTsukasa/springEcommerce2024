@@ -23,10 +23,10 @@ public class AdministradorController {
 
 	@GetMapping("")
 	public String home(Model model) {
-		
+
 		List<Producto> produtos = productoService.findAll();
-		model.addAttribute("productos",produtos);
-		
+		model.addAttribute("productos", produtos);
+
 		return "administrador/home";
 	}
 
