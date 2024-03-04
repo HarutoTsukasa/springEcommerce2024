@@ -17,12 +17,12 @@ public class UploadFileService {
 	private String folder = "images//";
 
 	// metodo para subir imagen de producto
-	public String saveImages(MultipartFile file) throws IOException {
+	public String saveImages(MultipartFile file, String nombre) throws IOException {
 		// validacion de imagen
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
 			// variable path que redirige al directorio, se importa el path de .nio.file
-			Path path = Paths.get(folder + file.getOriginalFilename());
+			Path path = Paths.get(folder + nombre + file.getOriginalFilename());
 			Files.write(path, bytes);
 			return file.getOriginalFilename();
 		}

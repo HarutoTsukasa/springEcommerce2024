@@ -60,7 +60,7 @@ public class ProductoController {
 		// imagen
 		// validacion cuando se crea un producto
 		if (producto.getId() == null) {
-			String nombreImagen = upload.saveImages(file);
+			String nombreImagen = upload.saveImages(file, producto.getNombre());
 			producto.setImagen(nombreImagen);
 		}
 
@@ -101,7 +101,7 @@ public class ProductoController {
 				upload.deleteImage(p.getImagen());
 			}
 
-			String nombreImagen = upload.saveImages(file);
+			String nombreImagen = upload.saveImages(file, p.getNombre());
 			producto.setImagen(nombreImagen);
 		}
 		producto.setUsuario(p.getUsuario());

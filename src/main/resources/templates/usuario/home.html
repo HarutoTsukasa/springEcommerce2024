@@ -11,7 +11,8 @@
 
 	<!-- ======= Hero Section ======= -->
 	<section>
-
+		<br>
+		<div class="container" th:include="usuario/template_user.html::search"></div>
 	</section><!-- End Hero Section -->
 
 	<main id="main">
@@ -99,7 +100,8 @@
 										Descripción
 									</p>
 									<p class="price">
-										<a th:href="@{/productohome/{id} (id=${producto.id})}" class="btn btn-success">Ver
+										<a th:href="@{/productohome/{id} (id=${producto.id})}"
+											class="btn btn-success">Ver
 											producto</a>
 									</p>
 								</div><!-- Menu Item -->

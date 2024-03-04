@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,7 +169,7 @@ public class HomeUserController {
 		model.addAttribute("orden", orden);
 		model.addAttribute("usuario", usuario);
 
-		return "/usuario/resumenorden";
+		return "usuario/resumenorden";
 	}
 
 	// metodo getmapping para el boton de generar orden en la vista
@@ -190,6 +191,15 @@ public class HomeUserController {
 		orden = new Orden();
 		detalles.clear();
 		return "redirect:/";
+	}
+
+	// metodo post para buscar productos en la vista del home de usuario
+	@PostMapping("/search")
+	public String searchProduct(@RequestParam String nombre, Model model) {
+		LOGGER.info("Nombre del producto: {}", nombre);
+		List<Producto> productos = productoService.findAll().stream().filter(p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
+		model.addAttribute("productos", productos);
+		return "usuario/home";
 	}
 
 }
