@@ -22,9 +22,9 @@ public class UploadFileService {
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
 			// variable path que redirige al directorio, se importa el path de .nio.file
-			Path path = Paths.get(folder + nombre + file.getOriginalFilename());
+			Path path = Paths.get(folder + nombre + "_" + file.getOriginalFilename());
 			Files.write(path, bytes);
-			return file.getOriginalFilename();
+			return nombre + "_" + file.getOriginalFilename();
 		}
 		return "default.jpg";
 	}

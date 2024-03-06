@@ -197,7 +197,8 @@ public class HomeUserController {
 	@PostMapping("/search")
 	public String searchProduct(@RequestParam String nombre, Model model) {
 		LOGGER.info("Nombre del producto: {}", nombre);
-		List<Producto> productos = productoService.findAll().stream().filter(p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
+		List<Producto> productos = productoService.findAll().stream()
+				.filter(p -> p.getNombre().toUpperCase().contains(nombre.toUpperCase())).collect(Collectors.toList());
 		model.addAttribute("productos", productos);
 		return "usuario/home";
 	}
