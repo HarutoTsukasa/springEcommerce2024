@@ -3,6 +3,7 @@ package com.sena.ecommerce.service;
 import java.util.List;
 
 import com.sena.ecommerce.model.Orden;
+import com.sena.ecommerce.model.Usuario;
 
 public interface IOrdenService {
 	// un metodo de momento
@@ -13,4 +14,7 @@ public interface IOrdenService {
 
 	// metedo para los numeros de ordenes incrmentales
 	public String generarNumeroOrden();
+	
+	// metodo findbyuserid
+	public List<Orden> findByUsuario(Usuario usuario);
 }

@@ -6,7 +6,9 @@
 <body>
 
 	<!-- ======= Header ======= -->
-	<div th:include="usuario/template_user.html::header"></div>
+	<div th:include="usuario/template_user.html::header" th:if="${sesion == null}"></div>
+
+	<div th:include="usuario/template_user.html::headerUser" th:unless="${sesion == null}"></div>
 	<!-- End Header -->
 
 	<!-- ======= Hero Section ======= -->

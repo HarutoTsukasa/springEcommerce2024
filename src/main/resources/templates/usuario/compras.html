@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
+
+<head th:include="usuario/template_user.html::head"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<div th:include="usuario/template_user.html::header" th:if="${sesion == null}"></div>
+
+	<div th:include="usuario/template_user.html::headerUser" th:unless="${sesion == null}"></div>
+	<!-- End Header -->
+
+	<!-- ======= Hero Section ======= -->
+	<section>
+		<br>
+		<div class="container" th:include="usuario/template_user.html::search"></div>
+	</section><!-- End Hero Section -->
+
+	<main id="main">
+		<!-- Page Content -->
+		<div class="container">
+
+			<!-- Page Content -->
+			<div class="container">
+
+
+				<!-- Page Heading/Breadcrumbs -->
+				<h1 class="mt-4 mb-3">
+					Spring eCommerce <small>Compras</small>
+				</h1>
+
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+					<li class="breadcrumb-item active">Compras</li>
+				</ol>
+
+				<!-- Blog Post -->
+				<div class="card mb-4">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">No. de Orden</th>
+											<th scope="col">Fecha</th>
+											<th scope="col">Valor</th>
+											<th scope="col">Acción</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="orden: ${ordenes}">
+											<td th:text="${orden.numero}"></td>
+											<td th:text="${orden.fechaCreacion}"></td>
+											<td th:text="${orden.total}"></td>
+											<td><a th:href="@{/usuario/detalle/{id} (id=${orden.id}) }"
+													class="btn btn-success">Ver Detalle</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.container -->
+
+		</div>
+		<!-- /.container -->
+	</main><!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<div th:include="usuario/template_user.html::footer"></div>
+	<!-- End Footer -->
+
+	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
+
+	<div id="preloader"></div>
+
+	<div th:include="usuario/template_user.html::jsFiles"></div>
+
+</body>
+
+</html>
