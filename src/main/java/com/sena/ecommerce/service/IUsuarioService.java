@@ -15,5 +15,8 @@ public interface IUsuarioService {
 	public void delete(Integer id);
 
 	Optional<Usuario> findById(Integer id);
+	
+	// nuevo metodo para validar email
+	Optional<Usuario> findByEmail(String email);
 
 }

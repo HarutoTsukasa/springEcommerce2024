@@ -17,9 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sena.ecommerce.model.Producto;
 import com.sena.ecommerce.model.Usuario;
 import com.sena.ecommerce.service.IProductoService;
+import com.sena.ecommerce.service.IUsuarioService;
 import com.sena.ecommerce.service.UploadFileService;
 
 import ch.qos.logback.classic.Logger;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/productos")
@@ -30,6 +32,9 @@ public class ProductoController {
 
 	@Autowired
 	private IProductoService productoService;
+
+	@Autowired
+	private IUsuarioService usuarioService;
 
 	// variable del servicio de carga y eliminacion de imagenes
 	@Autowired
@@ -51,11 +56,12 @@ public class ProductoController {
 
 	// metodo para crear nuevos procutos
 	@PostMapping("/save")
-	public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+	public String save(Producto producto, @RequestParam("img") MultipartFile file, HttpSession session)
+			throws IOException {
 		// Logger para saber lo que se va a guardar en la DB
 		LOGGER.info("Este es el objeto del producto a guardar en la DB {}", producto);
 		// usuario que registra desde la vista
-		Usuario u = new Usuario(1, "", "", "", "", "", "", "");
+		Usuario u = usuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 		producto.setUsuario(u);
 		// imagen
 		// validacion cuando se crea un producto

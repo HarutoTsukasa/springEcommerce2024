@@ -25,6 +25,8 @@ import com.sena.ecommerce.service.IProductoService;
 import com.sena.ecommerce.service.IUsuarioService;
 
 import ch.qos.logback.classic.Logger;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -57,9 +59,10 @@ public class HomeUserController {
 	// objeto que almacena los datos de la orden
 	Orden orden = new Orden();
 
-	// metodo que mapea la vista de usuario en la raiz dle proyecto
+	// metodo que mapea la vista de usuario en la raiz del proyecto
 	@GetMapping("")
-	public String home(Model model) {
+	public String home(Model model, HttpSession session) {
+		LOGGER.info("sesion usuario: {}", session.getAttribute("idUsuario"));
 		model.addAttribute("productos", productoService.findAll());
 		return "usuario/home";
 	}
@@ -159,11 +162,11 @@ public class HomeUserController {
 
 	// metodo para pasar a la vista de resumen orden
 	@GetMapping("/order")
-	public String order(Model model) {
+	public String order(Model model, HttpSession session) {
 
 		// se crea un objeto de la clase usuario donde de momento
 		// se envia el id de usuario quemado
-		Usuario usuario = usuarioservice.findById(1).get();
+		Usuario usuario = usuarioservice.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 
 		model.addAttribute("cart", detalles);
 		model.addAttribute("orden", orden);
@@ -174,12 +177,12 @@ public class HomeUserController {
 
 	// metodo getmapping para el boton de generar orden en la vista
 	@GetMapping("/saveOrder")
-	public String saveOrder() {
+	public String saveOrder(HttpSession session) {
 		Date fechaCreacion = new Date();
 		orden.setFechaCreacion(fechaCreacion);
 		orden.setNumero(ordenService.generarNumeroOrden());
 		// usuario que se referencia en esa compra previamente logeado
-		Usuario usuario = usuarioservice.findById(1).get();
+		Usuario usuario = usuarioservice.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
 		orden.setUsuario(usuario);
 		ordenService.save(orden);
 		// guardar detalles de la orden
