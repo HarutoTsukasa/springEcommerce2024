@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sena.ecommerce.model.Producto;
+import com.sena.ecommerce.model.Usuario;
 import com.sena.ecommerce.service.IProductoService;
+import com.sena.ecommerce.service.IUsuarioService;
 
 // decirle que es un controller
 @Controller
@@ -21,6 +23,9 @@ public class AdministradorController {
 	@Autowired
 	private IProductoService productoService;
 
+	@Autowired
+	private IUsuarioService usuarioService;
+
 	@GetMapping("")
 	public String home(Model model) {
 
@@ -28,6 +33,15 @@ public class AdministradorController {
 		model.addAttribute("productos", produtos);
 
 		return "administrador/home";
+	}
+
+	// metodo usuarios
+	@GetMapping("/usuarios")
+	public String usuarios(Model model) {
+//		List<Usuario> usuarios = usuarioService.findAll();
+//		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuarios", usuarioService.findAll());
+		return "administrador/usuarios";
 	}
 
 }
