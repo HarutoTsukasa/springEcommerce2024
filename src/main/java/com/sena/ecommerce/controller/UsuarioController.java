@@ -87,11 +87,18 @@ public class UsuarioController {
 	@GetMapping("/detalle/{id}")
 	public String detalleCompra(@PathVariable Integer id,HttpSession session, Model model) {
 		//session
-		model.addAttribute("session", session.getAttribute("idUsuario"));
+		model.addAttribute("sesion", session.getAttribute("idUsuario"));
 		LOGGER.info("Id de la orden: {}",id);
 		Optional<Orden> orden = ordenService.findById(id);
 		model.addAttribute("detalles", orden.get().getDetalle());
 		return "usuario/detallecompra";
+	}
+	
+	//metodo cierre de sesion
+	@GetMapping("/cerrar")
+	public String cerrarSesion(HttpSession session) {
+		session.removeAttribute("idUsuario");
+		return "redirect:/";
 	}
 
 }

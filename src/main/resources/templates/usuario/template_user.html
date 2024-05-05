@@ -38,8 +38,8 @@
 
 <!-- ======= Header ======= -->
 
-<div th:fragment="header">
-	<header id="header" class="header fixed-top d-flex align-items-center">
+<div th:fragment="header" class="header fixed-top d-flex align-items-center">
+<!--	<header id="header" class="header fixed-top d-flex align-items-center">-->
 		<div class="container d-flex align-items-center justify-content-between">
 
 			<a th:href="@{/}" class="logo d-flex align-items-center me-auto me-lg-0">
@@ -78,11 +78,12 @@
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
 		</div>
-	</header><!-- End Header -->
+<!--	</header>-->
+	<!-- End Header -->
 </div>
 
-<div th:fragment="usuarioCabecera">
-	<header id="header" class="header fixed-top d-flex align-items-center">
+<div th:fragment="usuarioCabecera" class="header fixed-top d-flex align-items-center">
+<!--	<header id="header" class="header fixed-top d-flex align-items-center">-->
 		<div class="container d-flex align-items-center justify-content-between">
 
 			<a th:href="@{/}" class="logo d-flex align-items-center me-auto me-lg-0">
@@ -120,13 +121,14 @@
 				</ul>
 			</nav><!-- .navbar -->
 
-			<a class="btn-book-a-table" th:href="@{/usuario/login}">Close <i class="bi bi-box-arrow-in-right"></i></a>
+			<a class="btn-book-a-table" th:href="@{/usuario/cerrar}">Close <i class="bi bi-box-arrow-in-right"></i></a>
 			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
 			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
 
 		</div>
-	</header><!-- End Header -->
+<!--	</header>-->
+	<!-- End Header -->
 </div>
 
 <div th:fragment="search">
