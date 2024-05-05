@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
 
-<head th:include="usuario/template_user.html::head"></head>
+<head th:insert="~{usuario/template_user.html::head}"></head>
 
 <body>
 
 	<!-- ======= Header ======= -->
-	<div th:include="usuario/template_user.html::headerUser"></div>
+	<div th:insert="~{usuario/template_user.html::usuarioCabecera}"></div>
 	<!-- End Header -->
 
 	<!-- ======= Hero Section ======= -->
 	<section>
-		<!--		<div class="container" th:include="usuario/template_user.html::search"></div>-->
+		<!--		<div class="container" th:insert="~{usuario/template_user.html::search}"></div>-->
 	</section><!-- End Hero Section -->
 
 	<main id="main">
@@ -60,7 +60,7 @@
 	</main><!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-	<div th:include="usuario/template_user.html::footer"></div>
+	<div th:insert="~{usuario/template_user.html::footer}"></div>
 	<!-- End Footer -->
 
 	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
@@ -68,7 +68,7 @@
 
 	<div id="preloader"></div>
 
-	<div th:include="usuario/template_user.html::jsFiles"></div>
+	<div th:insert="~{usuario/template_user.html::jsFiles}"></div>
 
 </body>
 

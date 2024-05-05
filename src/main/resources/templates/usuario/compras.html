@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
 
-<head th:include="usuario/template_user.html::head"></head>
+<head th:insert="~{usuario/template_user.html::head}"></head>
 
 <body>
 
 	<!-- ======= Header ======= -->
-	<div th:include="usuario/template_user.html::header" th:if="${sesion == null}"></div>
+	<div th:insert="~{usuario/template_user.html::header}" th:if="${sesion == null}"></div>
 
-	<div th:include="usuario/template_user.html::headerUser" th:unless="${sesion == null}"></div>
+	<div th:insert="~{usuario/template_user.html::usuarioCabecera}" th:unless="${sesion == null}"></div>
 	<!-- End Header -->
 
 	<!-- ======= Hero Section ======= -->
 	<section>
 		<br>
-		<div class="container" th:include="usuario/template_user.html::search"></div>
+		<div class="container" th:insert="~{usuario/template_user.html::search}"></div>
 	</section><!-- End Hero Section -->
 
 	<main id="main">
@@ -55,7 +55,7 @@
 											<td th:text="${orden.fechaCreacion}"></td>
 											<td th:text="${orden.total}"></td>
 											<td><a th:href="@{/usuario/detalle/{id} (id=${orden.id}) }"
-													class="btn btn-success">Ver Detalle</a></td>
+													class="btn btn-success" target="_blank">Ver Detalle</a></td>
 										</tr>
 									</tbody>
 								</table>
@@ -71,7 +71,7 @@
 	</main><!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-	<div th:include="usuario/template_user.html::footer"></div>
+	<div th:insert="~{usuario/template_user.html::footer}"></div>
 	<!-- End Footer -->
 
 	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
@@ -79,7 +79,7 @@
 
 	<div id="preloader"></div>
 
-	<div th:include="usuario/template_user.html::jsFiles"></div>
+	<div th:insert="~{usuario/template_user.html::jsFiles}"></div>
 
 </body>
 

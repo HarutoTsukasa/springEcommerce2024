@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sena.ecommerce.model.Orden;
@@ -80,6 +81,17 @@ public class UsuarioController {
 		List<Orden> ordenes = ordenService.findByUsuario(usuario);
 		model.addAttribute("ordenes", ordenes);
 		return "usuario/compras";
+	}
+	
+	//obtener detalles de las compras con id usuario
+	@GetMapping("/detalle/{id}")
+	public String detalleCompra(@PathVariable Integer id,HttpSession session, Model model) {
+		//session
+		model.addAttribute("session", session.getAttribute("idUsuario"));
+		LOGGER.info("Id de la orden: {}",id);
+		Optional<Orden> orden = ordenService.findById(id);
+		model.addAttribute("detalles", orden.get().getDetalle());
+		return "usuario/detallecompra";
 	}
 
 }

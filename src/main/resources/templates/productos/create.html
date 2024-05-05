@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
 
-<head th:include="administrador/template_admin.html::head"></head>
+<head th:insert="~{administrador/template_admin.html::head}"></head>
 
 <body>
 
 	<!-- ======= Header ======= -->
-	<div th:include="administrador/template_admin.html::header"></div>
+	<div th:insert="~{administrador/template_admin.html::header}"></div>
 	<!-- End Header -->
 
 	<!-- ======= Hero Section ======= -->
@@ -102,7 +102,7 @@
 	</main><!-- End #main -->
 
 	<!-- ======= Footer ======= -->
-	<div th:include="administrador/template_admin.html::footer"></div>
+	<div th:insert="~{administrador/template_admin.html::footer}"></div>
 	<!-- End Footer -->
 
 	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
@@ -110,7 +110,7 @@
 
 	<div id="preloader"></div>
 
-	<div th:include="administrador/template_admin.html::jsFiles"></div>
+	<div th:insert="~{administrador/template_admin.html::jsFiles}"></div>
 
 </body>
 
