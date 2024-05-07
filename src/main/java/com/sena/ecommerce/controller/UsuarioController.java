@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,9 @@ public class UsuarioController {
 	@Autowired
 	private IOrdenService ordenService;
 
+	// nuevo objeto encriptador
+	BCryptPasswordEncoder passEncode = new BCryptPasswordEncoder();
+
 	@GetMapping("/registro")
 	public String createUser() {
 		return "usuario/registro";
@@ -42,6 +46,8 @@ public class UsuarioController {
 	public String save(Usuario usuario, Model model) {
 		LOGGER.info("Usuario a registrar: {}", usuario);
 		usuario.setTipo("USER");
+		// encriptado contraseña
+		usuario.setPassword(passEncode.encode(usuario.getPassword()));
 		usuarioService.save(usuario);
 		return "redirect:/";
 	}
@@ -51,12 +57,16 @@ public class UsuarioController {
 		return "usuario/login";
 	}
 
-	// metodo de autenticacion 1 con postmapping sin spring security
-	@PostMapping("/acceder")
+	// metodo de autenticacion 1 con postmapping sin spring security en post
+	// metodo con sping security en get
+	@GetMapping("/acceder")
 	public String acceder(Usuario usuario, HttpSession session) {
 		LOGGER.info("Accesos: {}", usuario);
 		// acceder a la db para validar los datos
-		Optional<Usuario> user = usuarioService.findByEmail(usuario.getEmail());
+		// Optional<Usuario> user = usuarioService.findByEmail(usuario.getEmail());
+		// cambiamos la validacion de email por la del usuario logeado en la session
+		Optional<Usuario> user = usuarioService
+				.findById(Integer.parseInt(session.getAttribute("idUsuario").toString()));
 		// momentaneo sin spring security
 		if (user.isPresent()) {
 			// id de el usuario con la sesion logeada
@@ -82,19 +92,19 @@ public class UsuarioController {
 		model.addAttribute("ordenes", ordenes);
 		return "usuario/compras";
 	}
-	
-	//obtener detalles de las compras con id usuario
+
+	// obtener detalles de las compras con id usuario
 	@GetMapping("/detalle/{id}")
-	public String detalleCompra(@PathVariable Integer id,HttpSession session, Model model) {
-		//session
+	public String detalleCompra(@PathVariable Integer id, HttpSession session, Model model) {
+		// session
 		model.addAttribute("sesion", session.getAttribute("idUsuario"));
-		LOGGER.info("Id de la orden: {}",id);
+		LOGGER.info("Id de la orden: {}", id);
 		Optional<Orden> orden = ordenService.findById(id);
 		model.addAttribute("detalles", orden.get().getDetalle());
 		return "usuario/detallecompra";
 	}
-	
-	//metodo cierre de sesion
+
+	// metodo cierre de sesion
 	@GetMapping("/cerrar")
 	public String cerrarSesion(HttpSession session) {
 		session.removeAttribute("idUsuario");

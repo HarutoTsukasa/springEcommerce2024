@@ -50,13 +50,13 @@
 
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><a href="#hero">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#menu">Productos</a></li>
-					<li><a href="#events">Events</a></li>
+					<li><a th:href="@{/administrador}">Home Admin</a></li>
+					<li><a th:href="@{/}">Home User</a></li>
+					<li><a th:href="@{/productos}">Productos</a></li>
+					<li><a href="#events">Menu ADMIN</a></li>
 					<li><a href="#chefs">Chefs</a></li>
 					<li><a href="#gallery">Gallery</a></li>
-					<li class="dropdown"><a href="#"><span>Menú desplegable</span> <i
+					<li class="dropdown"><a href="#"><span>Opciones ADMIN</span> <i
 								class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li><a th:href="@{/productos}">Productos</a></li>
@@ -68,7 +68,7 @@
 								</ul>
 							</li>
 							<li><a th:href="@{/administrador/ordenes}">Ordenes</a></li>
-							<li><a href="#">option li</a></li>
+							<li><a href="#">option N/A</a></li>
 							<li><a th:href="@{/administrador/usuarios}">Usuarios</a></li>
 						</ul>
 					</li>
