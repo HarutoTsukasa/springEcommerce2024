@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
+
+<head th:insert="~{administrador/template_admin.html::head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<div th:insert="~{administrador/template_admin.html::header}"></div>
+	<!-- End Header -->
+
+	<!-- ======= Hero Section ======= -->
+	<section>
+
+	</section><!-- End Hero Section -->
+
+	<main id="main">
+		<!-- Page Content -->
+		<div class="container">
+
+
+			<!-- Page Heading/Breadcrumbs -->
+			<h1 class="mt-4 mb-3">
+				Spring eCommerce <small>Usuarios</small>
+			</h1>
+
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a th:href="@{/administrador}">Home</a></li>
+				<li class="breadcrumb-item active">Ver Usuarios</li>
+			</ol>
+			<h2>Usuarios</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Nombre</th>
+						<th scope="col">Email</th>
+						<th scope="col">Dirección</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="usuario:${usuarios}">
+						<td th:text="${usuario.nombre}"></td>
+						<td th:text="${usuario.email}"></td>
+						<td th:text="${usuario.direccion}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+		<!-- /.container -->
+	</main><!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<div th:insert="~{administrador/template_admin.html::footer}"></div>
+	<!-- End Footer -->
+
+	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
+
+	<div id="preloader"></div>
+
+	<div th:insert="~{administrador/template_admin.html::jsFiles}"></div>
+
+</body>
+
+</html>

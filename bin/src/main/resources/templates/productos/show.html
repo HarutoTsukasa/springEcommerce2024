@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org"><!--Convertir la plantilla en thymeLeaf-->
+
+<head th:insert="~{administrador/template_admin.html::head}"></head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<div th:insert="~{administrador/template_admin.html::header}"></div>
+	<!-- End Header -->
+
+	<!-- ======= Hero Section ======= -->
+	<section>
+
+	</section><!-- End Hero Section -->
+
+	<main id="main">
+
+		<!-- ======= Book A Table Section ======= -->
+		<section id="book-a-table" class="book-a-table">
+			<div class="container" data-aos="fade-up">
+
+				<div class="section-header">
+					<h2>Proyecto Spring eCommerce</h2>
+					<p>Lista de Productos</p>
+				</div>
+
+				<div class="container">
+					<h1 class="mt-4 mb-3">
+						Spring eCommerce <small>Productos</small>
+					</h1>
+
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a th:href="@{administrador}">Home</a></li>
+						<li class="breadcrumb-item active">Ver Productos</li>
+					</ol>
+
+					<a class="btn btn-primary" th:href="@{/productos/create}"> Crear Producto</a>
+					<h2>Productos</h2>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Nombre</th>
+								<th scope="col">Descripción</th>
+								<th scope="col">Inventario</th>
+								<th scope="col">Precio</th>
+								<th scope="col">Acción</th>
+								<th scope="col">Acción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="producto:${productos}">
+								<td th:text="${producto.nombre}"></td>
+								<td th:text="${producto.descripcion}"></td>
+								<td th:text="${producto.cantidad}"></td>
+								<td th:text="${producto.precio}"></td>
+								<td><a class="btn btn-warning"
+										th:href="@{productos/edit/{id} (id=${producto.id}) }">Editar</a> </td>
+								<td><a class="btn btn-danger"
+										th:href="@{productos/delete/{id} (id=${producto.id}) }">Eliminar</a> </td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+		</section><!-- End Book A Table Section -->
+
+
+
+	</main><!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<div th:insert="~{administrador/template_admin.html::footer}"></div>
+	<!-- End Footer -->
+
+	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+			class="bi bi-arrow-up-short"></i></a>
+
+	<div id="preloader"></div>
+
+	<div th:insert="~{administrador/template_admin.html::jsFiles}"></div>
+
+</body>
+
+</html>
